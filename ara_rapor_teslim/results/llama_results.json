@@ -1,0 +1,522 @@
+[
+  {
+    "id": 1,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1847.78
+  },
+  {
+    "id": 2,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity on destination port 4449"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1591.1
+  },
+  {
+    "id": 3,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1234",
+      "mitre_technique_name": "Network Scanning (T1234)",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected."
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1666.03
+  },
+  {
+    "id": 4,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1599.49
+  },
+  {
+    "id": 5,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1588.47
+  },
+  {
+    "id": 6,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1588.83
+  },
+  {
+    "id": 7,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1589.9
+  },
+  {
+    "id": 8,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1589.1
+  },
+  {
+    "id": 9,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1588.52
+  },
+  {
+    "id": 10,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity detected on destination port 65000.0"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1724.69
+  },
+  {
+    "id": 11,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity on destination port 6699"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1648.42
+  },
+  {
+    "id": 12,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1696.49
+  },
+  {
+    "id": 13,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity detected on destination port 32772, with low packet volume and no flags indicating malicious intent."
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1830.26
+  },
+  {
+    "id": 14,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1660.4
+  },
+  {
+    "id": 15,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1655.48
+  },
+  {
+    "id": 16,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, destination port 515.0"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1639.95
+  },
+  {
+    "id": 17,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1613.78
+  },
+  {
+    "id": 18,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1606.8
+  },
+  {
+    "id": 19,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1053",
+      "mitre_technique_name": "Network Scanning",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected"
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1608.17
+  },
+  {
+    "id": 20,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "Network Scanning",
+      "mitre_technique_id": "T1234",
+      "mitre_technique_name": "Network Scanning (T1234)",
+      "severity": "Low",
+      "explanation": "Possible network scanning activity, but no malicious traffic detected."
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 1726.14
+  }
+]

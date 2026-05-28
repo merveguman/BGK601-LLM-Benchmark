@@ -1,0 +1,542 @@
+[
+  {
+    "id": 1,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Scanning",
+      "severity": "Medium",
+      "explanation": "Port 84'e yönelik anormal hızda trafik (45K paket/s, 136KB/s). TCP bayrakları (SYN/FIN/RST) sıfır olması ve asimetrik paket boyutları (fwd:0, bwd:6) port tarama veya servis keşif aktivitesine işaret ediyor. Standart olmayan port kullanımı şüpheli."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 6592.02,
+    "tokens_used": 477
+  },
+  {
+    "id": 2,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "severity": "Medium",
+      "explanation": "Port 4449'a (genellikle kapalı) çok kısa süreli (54ms) bağlantı. Asimetrik paket boyutları (forward:0, backward:6 byte) ve TCP flag'lerinin olmaması port tarama veya keşif faaliyeti göstergesi. Yüksek paket/byte oranı anormal."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 5373.42,
+    "tokens_used": 464
+  },
+  {
+    "id": 3,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "severity": "Medium",
+      "explanation": "Standart dışı port (12345) üzerinde çok kısa süreli (27ms) yüksek paket hızı (74K pkt/s) ve asimetrik trafik gözlemlendi. SYN/FIN/RST bayrakları olmadan tek paket alışverişi port tarama aktivitesine işaret ediyor."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 5575.62,
+    "tokens_used": 461
+  },
+  {
+    "id": 4,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "N/A",
+      "mitre_technique_id": "N/A",
+      "mitre_technique_name": "N/A",
+      "severity": "Low",
+      "explanation": "Port 4125'te minimal trafik gözlemlendi. 1 istek-1 yanıt içeren kısa süreli (52ms) UDP veya uygulama katmanı trafiği. TCP flag'leri sıfır olduğundan TCP değil. Paket boyutları küçük (2-6 byte), normal keepalive veya kontrol mesajı olabilir. Anormal bir pattern tespit edilmedi."
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 6314.17,
+    "tokens_used": 485
+  },
+  {
+    "id": 5,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "severity": "Low",
+      "explanation": "Port 1984'e yönelik çok kısa süreli (32ms) trafik. Yüksek paket hızı (62500 pkt/s) ve minimum veri transferi (forward 0 byte, backward 6 byte) port tarama davranışını gösteriyor. SYN/RST/FIN flag'lerinin 0 olması UDP taraması veya anormal TCP davranışı olduğunu işaret ediyor."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 5652.55,
+    "tokens_used": 485
+  },
+  {
+    "id": 6,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Scanning",
+      "severity": "Medium",
+      "explanation": "Yüksek port numarası (34573) ve aşırı yüksek Flow Bytes/s (2M) ile Flow Packets/s (500K) değerleri anormal. Çok kısa sürede (4ms) yüksek paket/byte oranı, port tarama veya network reconnaissance aktivitesi göstergesi. Minimal paket boyutları (2-6 byte) ve flag yokluğu probe trafiğine işaret ediyor."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 5323.55,
+    "tokens_used": 487
+  },
+  {
+    "id": 7,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Scanning",
+      "severity": "Medium",
+      "explanation": "Port 1311 (Dell OpenManage) üzerinde çok kısa süreli (43ms) ve yüksek hızlı (46K paket/s) trafik tespit edildi. SYN/FIN/RST flag'lerinin olmaması ve asimetrik paket boyutları (forward:0, backward:6 byte) anormal port tarama veya servis keşif aktivitesini işaret ediyor."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 5223.63,
+    "tokens_used": 480
+  },
+  {
+    "id": 8,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Scanning",
+      "severity": "Medium",
+      "explanation": "Port 20222'ye yönelik anormal kısa süreli trafik. Çok yüksek paket/s oranı (29411), minimal paket boyutları (2-6 byte) ve SYN/FIN/RST flag'lerinin olmaması port tarama veya keşif faaliyeti belirtisi. Standart dışı port kullanımı şüpheli."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 5238.67,
+    "tokens_used": 473
+  },
+  {
+    "id": 9,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Scanning",
+      "severity": "Medium",
+      "explanation": "Port 3071'e yönelik çok kısa süreli (31ms) flow, anormal yüksek paket/byte hızı (64K paket/s, 193K byte/s), sıfır SYN/RST/FIN flag'leri ve asimetrik paket boyutları port tarama aktivitesine işaret ediyor. Tek paket gönderip tek cevap alma davranışı servis keşif denemesi göstergesi."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 6173.18,
+    "tokens_used": 492
+  },
+  {
+    "id": 10,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Command and Control",
+      "mitre_technique_id": "T1571",
+      "mitre_technique_name": "Non-Standard Port",
+      "severity": "Medium",
+      "explanation": "Port 65000 gibi yüksek numaralı standart dışı port kullanımı, çok kısa flow süresi (44ms), anormal yüksek flow hızı (136KB/s) ve minimal paket boyutları C2 iletişimi veya veri sızıntırma göstergesi olabilir."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 5216.24,
+    "tokens_used": 460
+  },
+  {
+    "id": 11,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Command and Control",
+      "mitre_technique_id": "T1071",
+      "mitre_technique_name": "Application Layer Protocol",
+      "severity": "High",
+      "explanation": "Port 6699 standart dışı bir port ve genellikle Napster P2P veya backdoor iletişiminde kullanılır. Çok kısa flow süresi (44ms), yüksek paket/saniye oranı (45454), düşük paket boyutları ve SYN/FIN/RST flag'lerinin yokluğu keepalive veya beacon trafiğini işaret ediyor. Bu özellikler C2 beacon aktivitesinin karakteristik göstergeleridir."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 5956.22,
+    "tokens_used": 503
+  },
+  {
+    "id": 12,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "N/A",
+      "mitre_technique_id": "N/A",
+      "mitre_technique_name": "N/A",
+      "severity": "Low",
+      "explanation": "Port 2161 üzerinde kısa süreli (52ms) normal bir iki yönlü iletişim. SYN/RST/FIN bayrakları 0 olması UDP veya devam eden TCP oturumunu işaret eder. Packet/byte oranları ve küçük paket boyutları normal uygulama trafiği ile uyumlu. Anormal davranış tespit edilmedi."
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 5127.23,
+    "tokens_used": 478
+  },
+  {
+    "id": 13,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "severity": "Medium",
+      "explanation": "Yüksek port numarasına (32772) minimal veri ile trafik. Düşük flow süresi, tek paket alışverişi ve SYN/FIN/RST bayraklarının yokluğu port tarama veya servis keşif aktivitesine işaret ediyor. Asimetrik paket boyutları (fwd:0, bwd:6) anormal davranış gösteriyor."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 6229.09,
+    "tokens_used": 477
+  },
+  {
+    "id": 14,
+    "kategori": "PortScan",
+    "zorluk": "easy",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "N/A",
+      "mitre_technique_id": "N/A",
+      "mitre_technique_name": "N/A",
+      "severity": "Low",
+      "explanation": "Port 53 üzerinde normal DNS sorgu-cevap trafiği. 1 istek 1 cevap paketi, düşük süre (49ms), flag'ler normal DNS için uygun. Şüpheli aktivite tespit edilmedi."
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 4740.55,
+    "tokens_used": 437
+  },
+  {
+    "id": 15,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Scanning",
+      "severity": "Medium",
+      "explanation": "Port 1192'ye yönelik anormal yüksek bant genişliği (250KB/s) ve paket hızı (83K paket/s) tespit edildi. 24ms gibi çok kısa sürede tamamlanan, sıfır bayrak içeren ve asimetrik paket boyutlarına sahip trafik, otomatik port tarama veya keşif aktivitesine işaret ediyor."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 5792.22,
+    "tokens_used": 479
+  },
+  {
+    "id": 16,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Collection",
+      "mitre_technique_id": "T1005",
+      "mitre_technique_name": "Data from Local System",
+      "severity": "Medium",
+      "explanation": "Port 515 (printer/LPD servisi) üzerinden anormal yüksek hızda veri transferi tespit edildi. Çok kısa sürede (42ms) yüksek byte/s oranı (190K) şüpheli. Minimal paket boyutları ve TCP flag'lerinin olmaması, otomatik veri toplama veya exfiltration girişimini düşündürüyor."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 5905.22,
+    "tokens_used": 476
+  },
+  {
+    "id": 17,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "severity": "Medium",
+      "explanation": "Yüksek port numarası (50389) ve aşırı yüksek flow rate değerleri (200K bytes/s, 50K packets/s) çok küçük paketlerle (2-6 byte) anormal. 40ms'de sadece 2 paket ile bu rate'ler matematiksel olarak tutarsız ve port tarama/keşif aktivitesi göstergesi."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 5656.01,
+    "tokens_used": 470
+  },
+  {
+    "id": 18,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": false,
+      "mitre_tactic": "N/A",
+      "mitre_technique_id": "N/A",
+      "mitre_technique_name": "N/A",
+      "severity": "Low",
+      "explanation": "Port 3869 (Diameter protokolü) üzerinde çok kısa süreli (49ms), minimal veri içeren normal bir TCP handshake sonrası veri alışverişi. Sadece 1 gidiş 1 dönüş paket, flag anomalisi yok. Meşru Diameter protokol trafiği olarak değerlendirildi."
+    },
+    "scores": {
+      "attack_detected_correct": false,
+      "tactic_correct": false,
+      "technique_correct": false
+    },
+    "latency_ms": 5695.46,
+    "tokens_used": 467
+  },
+  {
+    "id": 19,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "severity": "Medium",
+      "explanation": "Standart olmayan port (4321) üzerinde çok kısa süreli (48ms), yüksek hızlı (125KB/s, 41K paket/s) trafik tespit edildi. SYN/RST/FIN flag'lerinin olmaması ve asimetrik paket boyutları (Fwd:0, Bwd:6) port tarama veya servis keşif aktivitesine işaret ediyor."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 6491.79,
+    "tokens_used": 482
+  },
+  {
+    "id": 20,
+    "kategori": "PortScan",
+    "zorluk": "medium",
+    "expected": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "label": "PortScan"
+    },
+    "predicted": {
+      "attack_detected": true,
+      "mitre_tactic": "Discovery",
+      "mitre_technique_id": "T1046",
+      "mitre_technique_name": "Network Service Discovery",
+      "severity": "Medium",
+      "explanation": "Port 1236'ya yönelik anormal kısa süreli trafik (37ms) ve yüksek paket/byte oranı (54K pps, 162K Bps) tespit edildi. TCP bayrakları eksik (SYN/FIN/RST=0), ancak çift yönlü iletişim mevcut. Asymmetric paket boyutları (Fwd:0, Bwd:6) ve standart dışı port kullanımı, otomatik port tarama veya servis keşif aktivitesine işaret ediyor."
+    },
+    "scores": {
+      "attack_detected_correct": true,
+      "tactic_correct": true,
+      "technique_correct": true
+    },
+    "latency_ms": 6743.69,
+    "tokens_used": 517
+  }
+]
