@@ -1,0 +1,3 @@
+data/cicids2017/*.csv
+data/enterprise-attack.json
+data/chroma_db/
