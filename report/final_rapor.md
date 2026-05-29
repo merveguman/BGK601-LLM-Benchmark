@@ -216,6 +216,25 @@ zamanında her örnek için cosine similarity aramasıyla en ilgili
 hesaplanmış; kapalı kaynak modeller arasındaki performans farkının
 anlamlılığı McNemar testi ile sınanmıştır.
 
+### 3.6 Fine-Tuning (LoRA/QLoRA)
+
+Llama 3.2 modeline LoRA (Low-Rank Adaptation) ile alan odaklı
+ince ayar uygulanmıştır. CICIDS2017 veri setinden benchmark ile
+örtüşmeyen 540 örnek seçilerek eğitim seti oluşturulmuştur.
+Eğitim Google Colab T4 GPU ortamında Unsloth kütüphanesi
+kullanılarak gerçekleştirilmiştir.
+
+| Parametre | Değer |
+|-----------|-------|
+| Temel model | Llama 3.2 3B Instruct |
+| LoRA rank (r) | 16 |
+| Eğitilebilir parametre | 24.3M (%0.75) |
+| Epoch | 3 |
+| Eğitim örneği | 540 |
+| Eğitim süresi | 518 saniye |
+| Başlangıç loss | 2.22 |
+| Final loss | 0.23 |
+
 ---
 
 ## 4. Sonuçlar
@@ -296,6 +315,20 @@ Claude Sonnet 4.5 tercih edilmeli; maliyet öncelikliyse
 Mistral 7B + RAG güçlü bir alternatif oluşturmaktadır.
 
 ![Maliyet-Başarım Dengesi](graph_cost_performance.png){width=80%}
+
+### 4.8 Fine-Tuning Sonuçları
+
+| Model | Attack % | Tactic % | Technique % |
+|-------|---------|---------|------------|
+| Llama 3.2 (base) | 11.1 | 0.0 | 0.0 |
+| Llama 3.2 + RAG | 38.3 | 6.1 | 0.6 |
+| Llama 3.2 + Fine-tuning | 88.9 | 88.9 | 77.8 |
+
+Fine-tuning, attack detection doğruluğunu %11'den %89'a
+yükseltmiştir. Ancak BENIGN sınıfında 0/10 başarı elde
+edilmiştir; bu durum modelin false positive üretme
+eğilimini ortaya koymakta ve eğitim veri dengesinin
+önemini vurgulamaktadır.
 
 ---
 
