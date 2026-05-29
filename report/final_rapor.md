@@ -297,14 +297,38 @@ istatistiksel olarak anlamlı olduğunu ortaya koymaktadır.
 
 ### 4.6 Nitel Analiz
 
-Beş örnek üzerinde detaylı inceleme yapılmıştır. Doğru
-tahminlerde model genellikle yüksek paket yoğunluğu, anormal
-port numaraları ve yüksek byte/s değerleri gibi belirgin
-örüntülere dayanmıştır. Yanlış tahminlerde ise düşük paket
-sayılı, TCP flag içermeyen örneklerin zararsız trafik olarak
-değerlendirildiği görülmüştür. Bu durum modelin istatistiksel
-olarak belirgin olmayan stealth tarama örüntülerini tanımakta
-güçlük çektiğine işaret etmektedir.
+Beş örnek üzerinde detaylı inceleme yapılmıştır.
+
+**Örnek 1 — Doğru Tespit (PortScan, Easy):**
+Destination Port: 84, Flow Bytes/s: 136,363, Total Fwd
+Packets: 1. Claude bu örneği T1046 Discovery olarak
+doğru sınıflandırmış; yüksek byte/s oranını ve standart
+dışı port numarasını gerekçe olarak sunmuştur.
+
+**Örnek 2 — Doğru Tespit (FTP-Patator, Medium):**
+Yüksek paket yoğunluğu ve tek hedefe yönelik tekrarlı
+bağlantı pattern'ı modeli T1110.001 Credential Access
+tespitine yönlendirmiştir.
+
+**Örnek 3 — Yanlış Tespit (PortScan, Easy):**
+Destination Port: 4125, SYN Flag Count: 0, Total Fwd
+Packets: 1. Model bu örneği "normal TCP handshake"
+olarak değerlendirmiş ve attack\_detected: false
+döndürmüştür. TCP flag içermeyen tek paketlik akışların
+stealth tarama tekniğiyle örtüşmesi modeli yanıltmıştır.
+
+**Örnek 4 — Yanlış Tespit (PortScan, Hard):**
+Benzer düşük yoğunluklu trafik örneği; model "zararsız
+UDP trafiği" yorumu yapmıştır. Bu tür stealth
+örneklerinin tespiti fine-tuning ile %89'a çıkmış;
+alan odaklı eğitimin bu zayıf noktayı kapattığı
+görülmüştür.
+
+**Örnek 5 — Yanlış Tespit (BENIGN, Fine-tuned model):**
+Fine-tuned model BENIGN örneklerini saldırı olarak
+sınıflandırmış; bu durum eğitim veri dengesizliğinin
+doğrudan bir yansımasıdır. Gerçek SOC ortamında yüksek
+false positive oranı analist iş yükünü artıracaktır.
 
 ### 4.7 Maliyet-Başarım Analizi
 
@@ -318,19 +342,43 @@ Mistral 7B + RAG güçlü bir alternatif oluşturmaktadır.
 
 ### 4.8 Fine-Tuning Sonuçları
 
+Llama 3.2 modeline LoRA ile uygulanan alan odaklı ince
+ayarın sonuçları Tablo X'te sunulmaktadır.
+
 | Model | Attack % | Tactic % | Technique % |
 |-------|---------|---------|------------|
 | Llama 3.2 (base) | 11.1 | 0.0 | 0.0 |
 | Llama 3.2 + RAG | 38.3 | 6.1 | 0.6 |
 | Llama 3.2 + Fine-tuning | 88.9 | 88.9 | 77.8 |
 
-Fine-tuning, attack detection doğruluğunu %11'den %89'a
-yükseltmiştir. Ancak BENIGN sınıfında 0/10 başarı elde
-edilmiştir; bu durum modelin false positive üretme
-eğilimini ortaya koymakta ve eğitim veri dengesinin
-önemini vurgulamaktadır.
+Fine-tuning, attack detection doğruluğunu %11'den %89'a,
+tactic accuracy'yi %0'dan %89'a, technique accuracy'yi
+ise %0'dan %78'e yükseltmiştir. Bu üç metrikte de RAG
+konfigürasyonunu belirgin biçimde geride bırakmıştır.
 
----
+Eğitim süreci boyunca loss değerinin 2.22'den 0.23'e
+düşmesi modelin eğitim verisini başarıyla öğrendiğini
+göstermektedir. 204 adımda tamamlanan eğitim yaklaşık
+518 saniye sürmüş; bu süre T4 GPU ortamında LoRA'nın
+hesaplama verimliliğini ortaya koymaktadır.
+
+Kategori bazlı incelemede PortScan, FTP-Patator,
+SSH-Patator, DDoS ve tüm DoS kategorilerinde %100
+başarı elde edilmiştir. Ancak BENIGN sınıfında 0/10
+başarı dikkat çekmektedir. Model her örneği saldırı
+olarak etiketleme eğilimi göstermiş; bu durum eğitim
+setindeki sınıf dengesizliğinden kaynaklanmaktadır.
+540 eğitim örneğinin 480'i saldırı, yalnızca 60'ı
+BENIGN sınıfına aittir.
+
+Fine-tuning ve RAG yaklaşımları farklı güçlü yönler
+sergilemektedir. RAG, modele dışarıdan bilgi sağlayarak
+attack detection doğruluğunu artırırken; fine-tuning
+modelin iç parametrelerini güncelleyerek hem saldırı
+tespiti hem de ATT&CK sınıflandırmasında çok daha güçlü
+sonuçlar üretmektedir. Bununla birlikte fine-tuning,
+eğitim verisi gerektirmesi ve BENIGN sınıfındaki
+başarısızlık gibi kısıtlamalar barındırmaktadır.
 
 ## 5. Tartışma
 
@@ -378,7 +426,31 @@ edilmelidir. Hız öncelikliyse GPT-5.4-mini cazip bir seçenek
 sunmaktadır. Maliyet kritikse Mistral 7B + RAG sıfır işletim
 maliyetiyle makul bir performans sağlamaktadır.
 
-### 5.5 Kısıtlamalar
+### 5.5 Fine-Tuning'in Etkisi
+
+Alan odaklı fine-tuning, Llama 3.2'nin attack detection
+doğruluğunu %11'den %89'a, tactic accuracy'yi ise %0'dan
+%89'a yükseltmiştir. Bu sonuç, LoRA gibi parametre verimli
+ince ayar yöntemlerinin küçük modelleri siber güvenlik
+görevleri için hızla uzmanlaştırabileceğini göstermektedir.
+
+Bununla birlikte, fine-tuned modelin BENIGN sınıfında 0/10
+başarı elde etmesi dikkat çekicidir. Eğitim verisindeki
+sınıf dengesizliği ve eğitim ile test setinin aynı veri
+kaynağından türetilmiş olması, bu sonucun yorumlanmasında
+göz önünde bulundurulması gereken kısıtlamalardır. Gerçek
+dünya SOC ortamlarında benign trafik oranı çok daha yüksek
+olduğundan, bu sınıftaki başarısızlık kritik bir eksiklik
+olarak değerlendirilmelidir.
+
+RAG ile karşılaştırıldığında fine-tuning, tactic ve technique
+doğruluğu açısından belirgin biçimde üstün sonuçlar
+vermiştir. RAG saldırı varlığını tespit etmeye katkı
+sağlarken, fine-tuning modele ATT&CK çerçevesini doğrudan
+öğretmiş ve yapılandırılmış çıktı kalitesini önemli ölçüde
+artırmıştır.
+
+### 5.6 Kısıtlamalar
 
 Benchmark tek bir veri kaynağından türetilmiştir; farklı ağ
 ortamlarındaki genellenebilirlik test edilmemiştir. Yerel
@@ -402,11 +474,23 @@ modellerde belirleyici bir iyileşme sağlamıştır. Üçüncü
 olarak, tüm modellerde tactic ve technique doğruluğunun düşük
 kaldığı görülmüştür.
 
+Ek olarak, LoRA ile uygulanan fine-tuning Llama 3.2'nin
+attack detection doğruluğunu %11'den %89'a yükseltmiş;
+tactic ve technique doğruluğunu sırasıyla %89 ve %78'e
+taşımıştır. Bu sonuç, parametre verimli ince ayar
+yöntemlerinin açık kaynak modelleri siber güvenlik
+görevleri için etkin biçimde uzmanlaştırabileceğine
+işaret etmektedir.
+
 Gelecek çalışmalar için alan odaklı fine-tuning, anlamsal
 benzerlik tabanlı değerlendirme metrikleri ve farklı veri
 setleriyle genellenebilirlik testleri önerilmektedir.
 
 ---
+
+Proje kodu ve benchmark veri seti şu adreste
+kamuya açık olarak paylaşılmıştır:
+https://github.com/merveguman/BGK601-LLM-Benchmark
 
 ```{=latex}
 \newpage
