@@ -243,12 +243,17 @@ kullanılarak gerçekleştirilmiştir.
 
 | Model | Attack % | Tactic % | Technique % | Ağırlıklı Skor | Latency |
 |-------|---------|---------|------------|----------------|---------|
-| Claude Sonnet 4.5 | 84.0 | 6.8 | 6.4 | 34.0 | 6.09s |
-| GPT-5.4-mini | 45.2 | 8.5 | 2.2 | 23.9 | 1.62s |
-| Mistral 7B + RAG | 57.5 | 2.8 | 0.0 | 25.1 | 75.9s |
-| Llama 3.2 + RAG | 38.3 | 6.1 | 0.6 | 18.5 | 13.8s |
-| Mistral 7B (base) | 15.3 | 0.0 | 0.0 | 13.8 | 23.5s |
-| Llama 3.2 (base) | 11.1 | 0.0 | 0.0 | 12.8 | 10.6s |
+| Claude Sonnet 4.5 | 84.0 | 6.8 | 6.4 | 44.8 | 6.09s |
+| GPT-5.4-mini | 45.2 | 8.5 | 2.2 | 37.8 | 1.62s |
+| Mistral 7B + RAG | 57.5 | 2.8 | 0.0 | 34.6 | 75.9s |
+| Llama 3.2 + RAG | 38.3 | 6.1 | 0.6 | 27.4 | 13.8s |
+| Mistral 7B (base) | 15.3 | 0.0 | 0.0 | 21.9 | 23.5s |
+| Llama 3.2 (base) | 11.1 | 0.0 | 0.0 | 20.5 | 10.6s |
+
+*Ağırlıklı skor: Attack (%25), Tactic (%25), Technique (%20),
+JSON Parse (%10), Açıklama Kalitesi (%10), Gecikme (%5),
+Maliyet (%5) metriklerinin toplamıdır. Açıklama kalitesi
+20 örnek üzerinde insan değerlendirmesiyle (1–5) ölçülmüştür.*
 
 ![Model Karşılaştırması — Tüm Metrikler](graph_all_metrics.png){width=80%}
 
@@ -283,52 +288,33 @@ istatistiksel olarak anlamlı olduğunu ortaya koymaktadır.
 
 ### 4.5 Kategori Bazlı Hata Analizi
 
-| Kategori | Doğru/Toplam | Başarı % |
-|---------|-------------|---------|
-| DDoS | 40/40 | 100.0 |
-| FTP-Patator | 40/40 | 100.0 |
-| DoS slowloris | 37/40 | 92.5 |
-| DoS Slowhttptest | 37/40 | 92.5 |
-| SSH-Patator | 37/40 | 92.5 |
-| BENIGN | 30/40 | 75.0 |
-| DoS Hulk | 28/40 | 70.0 |
-| PortScan | 25/40 | 62.5 |
-| DoS GoldenEye | 25/40 | 62.5 |
+### 4.5 Kategori Bazlı Hata Analizi
+
+| Kategori | Claude | GPT | Mistral+RAG | Llama+RAG | Mistral | Llama |
+|---------|--------|-----|------------|-----------|---------|-------|
+| PortScan | 62% | 57% | 75% | 85% | 0% | 0% |
+| FTP-Patator | 100% | 50% | 98% | 75% | 38% | 0% |
+| SSH-Patator | 92% | 25% | 5% | 48% | 0% | 0% |
+| DDoS | 100% | 35% | 92% | 12% | 0% | 0% |
+| DoS Hulk | 70% | 22% | 80% | 18% | 0% | 0% |
+| DoS GoldenEye | 62% | 25% | 68% | 0% | 0% | 0% |
+| DoS slowloris | 92% | 45% | 57% | 15% | 0% | 0% |
+| DoS Slowhttptest | 92% | 68% | 32% | 75% | 0% | 0% |
+| BENIGN | 75% | 80% | 10% | 18% | 100% | 100% |
 
 ### 4.6 Nitel Analiz
 
-Beş örnek üzerinde detaylı inceleme yapılmıştır.
+Her model için 20 örnek üzerinde açıklama kalitesi
+araştırmacı tarafından 1–5 arası puanlandırılmıştır.
 
-**Örnek 1 — Doğru Tespit (PortScan, Easy):**
-Destination Port: 84, Flow Bytes/s: 136,363, Total Fwd
-Packets: 1. Claude bu örneği T1046 Discovery olarak
-doğru sınıflandırmış; yüksek byte/s oranını ve standart
-dışı port numarasını gerekçe olarak sunmuştur.
-
-**Örnek 2 — Doğru Tespit (FTP-Patator, Medium):**
-Yüksek paket yoğunluğu ve tek hedefe yönelik tekrarlı
-bağlantı pattern'ı modeli T1110.001 Credential Access
-tespitine yönlendirmiştir.
-
-**Örnek 3 — Yanlış Tespit (PortScan, Easy):**
-Destination Port: 4125, SYN Flag Count: 0, Total Fwd
-Packets: 1. Model bu örneği "normal TCP handshake"
-olarak değerlendirmiş ve attack\_detected: false
-döndürmüştür. TCP flag içermeyen tek paketlik akışların
-stealth tarama tekniğiyle örtüşmesi modeli yanıltmıştır.
-
-**Örnek 4 — Yanlış Tespit (PortScan, Hard):**
-Benzer düşük yoğunluklu trafik örneği; model "zararsız
-UDP trafiği" yorumu yapmıştır. Bu tür stealth
-örneklerinin tespiti fine-tuning ile %89'a çıkmış;
-alan odaklı eğitimin bu zayıf noktayı kapattığı
-görülmüştür.
-
-**Örnek 5 — Yanlış Tespit (BENIGN, Fine-tuned model):**
-Fine-tuned model BENIGN örneklerini saldırı olarak
-sınıflandırmış; bu durum eğitim veri dengesizliğinin
-doğrudan bir yansımasıdır. Gerçek SOC ortamında yüksek
-false positive oranı analist iş yükünü artıracaktır.
+| Model | Açıklama Kalitesi |
+|-------|------------------|
+| Claude Sonnet 4.5 | 3.75/5 |
+| GPT-5.4-mini | 2.70/5 |
+| Mistral 7B + RAG | 2.21/5 |
+| Llama 3.2 + RAG | 1.65/5 |
+| Mistral 7B (base) | 1.35/5 |
+| Llama 3.2 (base) | 1.00/5 |
 
 ### 4.7 Maliyet-Başarım Analizi
 
@@ -400,6 +386,27 @@ skoru elde etmesi ilgi çekicidir. Bu durum, farklı modellerin
 aynı görevin farklı alt bileşenlerinde öne çıkabildiğini
 düşündürmekte; tek bir metriğe dayalı model seçiminin
 yanıltıcı olabileceğine dikkat çekmektedir.
+
+Açıklama kalitesi değerlendirmesinde de Claude 3.75/5 ile
+diğer modelleri geride bırakmıştır. Açık kaynak modellerin
+saldırıyı doğru tespit ettiğinde bile yanlış teknikler öne 
+sürebildikleri görülmüştür.
+Bu bulgu, modellerin sayısal örüntüleri tanıyabildiğini
+ancak ATT&CK sınıflandırmasını tam anlamıyla kavrayamadığını
+düşündürmektedir.
+
+Kategori bazlı analiz ise model performanslarının saldırı
+türüne göre önemli ölçüde değiştiğini ortaya koymaktadır.
+Llama+RAG PortScan kategorisinde %85 ile Claude'u (%62)
+geride bırakırken Mistral+RAG FTP-Patator'da %98 başarıya
+ulaşmaktadır. Bu durum, RAG sisteminin belirli kategorilerde
+kapalı kaynak modellerin dezavantajlarını telafi edebildiğine
+işaret etmektedir. Öte yandan Mistral+RAG'ın SSH-Patator'da
+yalnızca %5 başarı elde etmesi, bilgi tabanının bu saldırı
+türünü yeterince kapsamamasından kaynaklanıyor olabilir.
+Base modellerin BENIGN kategorisinde %100 başarı göstermesi
+ise yanıltıcıdır; bu modeller her örneği zararsız
+etiketlediğinden saldırı kategorilerinde %0'a düşmektedir.
 
 ### 5.2 RAG'ın Katkısı ve Sınırlılıkları
 
