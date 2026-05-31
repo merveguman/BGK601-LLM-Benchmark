@@ -17,7 +17,7 @@ sonuçlar üretebileceği ise hâlâ net değildir.
 Bu çalışmada, altı farklı LLM konfigürasyonu CICIDS2017 veri seti
 üzerinden oluşturulan 360 örneklik bir benchmark ile test edilmiştir.
 Modeller; saldırı tespiti, MITRE ATT&CK taktik/teknik sınıflandırması
-ve şiddet değerlendirmesi görevlerinde karşılaştırılmıştır.
+görevlerinde karşılaştırılmıştır.
 
 En dikkat çekici bulgu, kapalı ve açık kaynak modeller arasındaki
 performans farkıdır. Claude Sonnet 4.5 %84 saldırı tespit
@@ -26,7 +26,7 @@ desteği olmaksızın anlamlı bir tespit yapamamıştır. RAG sistemi
 devreye alındığında ise Mistral'ın başarısı %15'ten %57'ye çıkmıştır.
 
 Öte yandan tüm modellerde MITRE ATT&CK teknik eşleştirme
-doğruluğunun %0 ile %8.5 arasında kaldığı görülmüştür. Bu sonuç,
+doğruluğunun %0 ile %6.4 arasında kaldığı görülmüştür. Bu sonuç,
 mevcut LLM'lerin saldırıyı tespit edebilse de onu doğru
 sınıflandırmakta zorlandığını ortaya koymaktadır. Dolayısıyla bu
 sistemler şu an için bir karar verici değil; SOC analistini
@@ -142,7 +142,7 @@ temsili için 11 özellik seçilmiştir: Destination Port, Flow
 Duration, Total Fwd/Bwd Packets, Flow Bytes/s, Flow Packets/s,
 SYN/RST/FIN Flag Count, Fwd/Bwd Packet Length Mean.
 
-**Benchmark tasarımı:** 5 kategori ve 12 alt kategori kapsamında
+**Benchmark tasarımı:** 4 kategori ve 9 alt kategori kapsamında
 360 örnek seçilmiştir. Her kategoriden örnekler Easy/Medium/Hard
 olarak eşit dağılımla etiketlenmiştir.
 
@@ -150,8 +150,7 @@ olarak eşit dağılımla etiketlenmiştir.
 |---------|----------------|---|
 | Reconnaissance | PortScan | 40 |
 | Credential Access | FTP-Patator, SSH-Patator | 80 |
-| DoS/DDoS | DDoS, DoS Hulk, GoldenEye, slowloris, Slowhttptest | 160 |
-| Web Attack | Brute Force, SQL Injection, XSS | 80 |
+| DoS/DDoS | DDoS, DoS Hulk, DoS GoldenEye, DoS slowloris, DoS Slowhttptest | 200 |
 | Benign | BENIGN | 40 |
 | **Toplam** | | **360** |
 
@@ -162,12 +161,13 @@ eşleştirilmiştir.
 | CICIDS Etiketi | ATT&CK Tactic | Technique ID |
 |----------------|--------------|-------------|
 | PortScan | Discovery | T1046 |
-| FTP/SSH-Patator | Credential Access | T1110.001 |
+| FTP-Patator | Credential Access | T1110.001 |
+| SSH-Patator | Credential Access | T1110.001 |
 | DDoS | Impact | T1498 |
-| DoS türleri | Impact | T1499 |
-| SQL Injection | Initial Access | T1190 |
-| XSS | Initial Access | T1059.007 |
-| Web Brute Force | Credential Access | T1110.001 |
+| DoS Hulk | Impact | T1499 |
+| DoS GoldenEye | Impact | T1499 |
+| DoS slowloris | Impact | T1499 |
+| DoS Slowhttptest | Impact | T1499 |
 | BENIGN | — | — |
 
 ### 3.3 Model Konfigürasyonları
@@ -216,13 +216,21 @@ zamanında her örnek için cosine similarity aramasıyla en ilgili
 hesaplanmış; kapalı kaynak modeller arasındaki performans farkının
 anlamlılığı McNemar testi ile sınanmıştır.
 
+Gecikme skoru en hızlı modeli (GPT-5.4-mini, 1.62s) referans
+alarak normalize edilmiştir: gecikme_skoru = 1.62 / model_latency.
+Maliyet skoru üç kademeli olarak belirlenmiştir: ücretsiz
+yerel modeller 1.0, GPT-5.4-mini 0.7, Claude Sonnet 4.5 0.4.
+Açıklama kalitesi her model için 20 örnek üzerinde
+araştırmacı tarafından 1–5 arası puanlanmış ve 5'e
+bölünerek normalize edilmiştir.
+
 ### 3.6 Fine-Tuning (LoRA/QLoRA)
 
 Llama 3.2 modeline LoRA (Low-Rank Adaptation) ile alan odaklı
 ince ayar uygulanmıştır. CICIDS2017 veri setinden benchmark ile
 örtüşmeyen 540 örnek seçilerek eğitim seti oluşturulmuştur.
 Eğitim Google Colab T4 GPU ortamında Unsloth kütüphanesi
-kullanılarak gerçekleştirilmiştir.
+kullanılarak gerçekleştirilmiştir.[16]
 
 | Parametre | Değer |
 |-----------|-------|
@@ -259,6 +267,29 @@ Maliyet (%5) metriklerinin toplamıdır. Açıklama kalitesi
 
 ![Model Karşılaştırması — Attack Detection](graph_attack_detection.png){width=80%}
 
+Saldırı tespiti için precision, recall ve F1 skorları
+aşağıda  verilmektedir.
+
+| Model | Precision | Recall | F1 |
+|-------|----------|--------|-----|
+| Claude Sonnet 4.5 | 0.964 | 0.841 | 0.898 |
+| GPT-5.4-mini | 0.942 | 0.409 | 0.571 |
+| Mistral 7B + RAG | 0.849 | 0.634 | 0.726 |
+| Llama 3.2 + RAG | 0.799 | 0.409 | 0.541 |
+| Mistral 7B (base) | 1.000 | 0.047 | 0.090 |
+| Llama 3.2 (base) | 0.000 | 0.000 | 0.000 |
+
+Mistral 7B (base) precision=1.0 ile nadiren saldırı
+etiketi üretmekte ancak ürettiğinde doğru yapmaktadır.
+Llama 3.2 (base) ise hiçbir örneği saldırı olarak
+etiketlemediğinden F1=0 elde edilmiştir. Claude Sonnet
+4.5 hem precision hem recall açısından dengeli ve en
+yüksek F1 skorunu elde etmiştir.
+
+BERTScore hesaplanmamıştır; açıklama kalitesi
+ground-truth referans açıklama bulunmadığından
+insan değerlendirmesiyle (1–5) ölçülmüştür.
+
 ### 4.2 Bootstrap Güven Aralıkları
 
 | Model | Attack % | %95 CI |
@@ -269,6 +300,7 @@ Maliyet (%5) metriklerinin toplamıdır. Açıklama kalitesi
 | Llama 3.2 + RAG | 38.3 | [35.5, 41.5] |
 | Mistral 7B (base) | 15.3 | [13.2, 17.5] |
 | Llama 3.2 (base) | 11.1 | [9.3, 13.0] |
+| Llama 3.2 + Fine-tuning | 88.9 | [82.2, 94.4] |
 
 ### 4.3 İstatistiksel Anlamlılık
 
@@ -329,13 +361,19 @@ Mistral 7B + RAG güçlü bir alternatif oluşturmaktadır.
 ### 4.8 Fine-Tuning Sonuçları
 
 Llama 3.2 modeline LoRA ile uygulanan alan odaklı ince
-ayarın sonuçları Tablo X'te sunulmaktadır.
+ayarın sonuçları aşağıdaki tabloda sunulmaktadır.
 
-| Model | Attack % | Tactic % | Technique % |
-|-------|---------|---------|------------|
-| Llama 3.2 (base) | 11.1 | 0.0 | 0.0 |
-| Llama 3.2 + RAG | 38.3 | 6.1 | 0.6 |
-| Llama 3.2 + Fine-tuning | 88.9 | 88.9 | 77.8 |
+| Model | Attack % | Tactic % | Technique % | Ağ. Skor | %95 CI |
+|-------|---------|---------|------------|---------|--------|
+| Llama 3.2 (base) | 11.1 | 0.0 | 0.0 | 20.5 | [9.3, 13.0] |
+| Llama 3.2 + RAG | 38.3 | 6.1 | 0.6 | 27.4 | [35.5, 41.5] |
+| Llama 3.2 + Fine-tuning | 88.9 | 88.9 | 77.8 | 83.8 | [82.2, 94.4] |
+
+Değerlendirme, benchmark veri setinin tamamından (360 örnek)
+her kategoriden 10 örnek rastgele seçilmesiyle oluşturulan
+90 örneklik bir alt küme üzerinde yapılmıştır (random.seed=99).
+Bu örnekler fine-tuning eğitim setiyle (540 örnek,
+random.seed=123) örtüşmemektedir.
 
 Fine-tuning, attack detection doğruluğunu %11'den %89'a,
 tactic accuracy'yi %0'dan %89'a, technique accuracy'yi
@@ -365,6 +403,11 @@ tespiti hem de ATT&CK sınıflandırmasında çok daha güçlü
 sonuçlar üretmektedir. Bununla birlikte fine-tuning,
 eğitim verisi gerektirmesi ve BENIGN sınıfındaki
 başarısızlık gibi kısıtlamalar barındırmaktadır.
+
+Fine-tuned modelin %95 bootstrap güven aralığı [82.2%, 94.4%]
+olarak hesaplanmıştır. Dar güven aralığı, 90 örneklik test
+setinde elde edilen %88.9 attack detection doğruluğunun
+güvenilir bir tahmin olduğuna işaret etmektedir.
 
 ## 5. Tartışma
 
@@ -497,7 +540,7 @@ setleriyle genellenebilirlik testleri önerilmektedir.
 
 Proje kodu ve benchmark veri seti şu adreste
 kamuya açık olarak paylaşılmıştır:
-https://github.com/merveguman/BGK601-LLM-Benchmark
+github.com/merveguman/BGK601-LLM-Benchmark
 
 ```{=latex}
 \newpage
@@ -574,6 +617,12 @@ Open Foundation and Fine-Tuned Chat Models,"
 
 [15] Splunk Inc., "Splunk Enterprise,"
 2024. [Online]. Available: https://www.splunk.com
+
+[16] E. J. Hu, Y. Shen, P. Wallis, Z. Allen-Zhu, Y. Li,
+S. Wang, L. Wang, and W. Chen, "LoRA: Low-Rank Adaptation
+of Large Language Models," in *Proc. Int. Conf. Learning
+Representations (ICLR)*, 2022.
+arXiv preprint arXiv:2106.09685.
 
 ---
 
